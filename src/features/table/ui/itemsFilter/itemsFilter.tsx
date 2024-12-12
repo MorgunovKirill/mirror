@@ -38,7 +38,7 @@ const ItemsFilter = ({ onSearchReset, onSearchSubmit, searchValue, setSearchValu
       <button className={clsx(s.btn, s.searchBtn)} disabled={!searchValue} onClick={onSearchSubmit}>
         <span>Найти</span>
       </button>
-      <button className={clsx(s.btn, s.resetBtn)} disabled={searchValue === ''} onClick={reset}>
+      <button className={clsx(s.btn, s.resetBtn)} onClick={reset}>
         <span>Сбросить</span>
       </button>
     </div>
