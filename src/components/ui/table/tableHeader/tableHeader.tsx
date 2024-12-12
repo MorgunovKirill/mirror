@@ -2,42 +2,40 @@ import { useState } from 'react'
 
 import SvgArrowUp from '@/assets/components/ArrowUp'
 import { Table } from '@/components/ui/table/table'
+import { SortType, SortingOptions } from '@/features/table/ui/itemsList/itemsList'
 import clsx from 'clsx'
 
 import s from './tableHeader.module.scss'
 
 type TableName = {
   flag?: boolean
-  key: string
+  key: SortingOptions
   title: string
 }
 
 type Props = {
   item: TableName[]
-  sortingStatus: (status: null | string) => void
+  setSortingStatus: (status: SortType | null) => void
 }
 
-export const TableHeader = ({ item, sortingStatus }: Props) => {
+export const TableHeader = ({ item, setSortingStatus }: Props) => {
   const [sort, setSort] = useState<null | string>('asc')
   const [name, setName] = useState<string>()
 
-  const sorting = (name: string) => {
-    if (name === 'controls') {
-      return
-    }
+  const sorting = (name: SortingOptions) => {
     setName(name)
     if (sort === 'asc' || sort === 'desc') {
       if (sort === 'desc') {
         setSort(null)
-        sortingStatus(name + '-' + 'desc')
+        setSortingStatus({ name, value: 'desc' })
       } else if (sort === 'asc') {
         setSort('desc')
-        sortingStatus(name + '-' + 'asc')
+        setSortingStatus({ name, value: 'asc' })
       }
     }
     if (sort === null) {
       setSort('asc')
-      sortingStatus(sort)
+      setSortingStatus(sort)
     }
   }
 
