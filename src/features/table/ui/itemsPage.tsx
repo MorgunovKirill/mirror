@@ -23,14 +23,16 @@ export type ItemType = {
 
 const ItemsPage = () => {
   const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [searchValue, setSearchValue] = useState<string>('all')
+  const [searchValue, setSearchValue] = useState<string>('')
 
   useEffect(() => {
     getData()
       .then(response => {
         setData(response.data)
+        setFilteredData(response.data)
         setLoading(false)
       })
       .catch(err => {
@@ -50,10 +52,34 @@ const ItemsPage = () => {
     setSearchValue(value)
   }
 
+  const onSearchSubmit = () => {
+    const filtered = data.filter(item => {
+      return Object.values(item).some((value: any) => {
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchValue.toLowerCase())
+        }
+
+        return false
+      })
+    })
+
+    setFilteredData(filtered)
+  }
+
+  const onSearchReset = () => {
+    setSearchValue('')
+    setFilteredData(data)
+  }
+
   return (
     <>
-      <ItemsFilter searchValue={searchValue} setSearchValue={onSearchValueChange} />
-      <ItemsList items={data} />
+      <ItemsFilter
+        onSearchReset={onSearchReset}
+        onSearchSubmit={onSearchSubmit}
+        searchValue={searchValue}
+        setSearchValue={onSearchValueChange}
+      />
+      <ItemsList items={filteredData} />
     </>
   )
 }

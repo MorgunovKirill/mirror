@@ -1,4 +1,12 @@
-export const itemTableName = [
+export type SortingOptions = 'email' | 'firstName' | 'id' | 'lastName' | 'phone'
+
+export type TableName = {
+  flag?: boolean
+  key: SortingOptions
+  title: string
+}
+
+export const itemTableName: TableName[] = [
   {
     key: 'id',
     title: 'ID',

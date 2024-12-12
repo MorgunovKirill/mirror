@@ -6,29 +6,28 @@ import clsx from 'clsx'
 import s from './itemsFilter.module.scss'
 
 type Props = {
+  onSearchReset: () => void
+  onSearchSubmit: () => void
   searchValue: null | string
   setSearchValue: (value: string) => void
 }
 
-const ItemsFilter = ({ setSearchValue }: Props) => {
+const ItemsFilter = ({ onSearchReset, onSearchSubmit, searchValue, setSearchValue }: Props) => {
   const { control, setValue } = useForm({
     defaultValues: {
       search: '',
     },
   })
 
-  const onSubmit = () => {
-    alert('SEARCH')
-  }
-
   const reset = () => {
     setValue('search', '')
+    onSearchReset()
   }
 
   return (
     <div className={s.container}>
       <label className={s.search}>
-        <p className={s.label}>Search by name</p>
+        <p className={s.label}>Search</p>
         <ControlledTextField
           control={control}
           name={'search'}
@@ -36,10 +35,10 @@ const ItemsFilter = ({ setSearchValue }: Props) => {
           placeholder={'Search...'}
         />
       </label>
-      <button className={clsx(s.btn, s.searchBtn)} onClick={onSubmit}>
+      <button className={clsx(s.btn, s.searchBtn)} disabled={!searchValue} onClick={onSearchSubmit}>
         <span>Найти</span>
       </button>
-      <button className={clsx(s.btn, s.resetBtn)} onClick={reset}>
+      <button className={clsx(s.btn, s.resetBtn)} disabled={searchValue === ''} onClick={reset}>
         <span>Сбросить</span>
       </button>
     </div>

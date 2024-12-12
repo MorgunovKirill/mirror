@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Table, TableHeader } from '@/components/ui/table'
-import { itemTableName } from '@/components/ui/table/tableHeader/tableHeaderName'
+import { SortingOptions, itemTableName } from '@/components/ui/table/tableHeader/tableHeaderName'
 import { ItemsRow } from '@/features/table/ui/itemsList/itemsRow/itemsRow'
 import { ItemType } from '@/features/table/ui/itemsPage'
 import clsx from 'clsx'
@@ -12,8 +12,6 @@ type Props = {
   className?: string
   items: ItemType[] | undefined
 }
-
-export type SortingOptions = 'email' | 'firstName' | 'id' | 'lastName'
 
 export type SortType = {
   name: SortingOptions
@@ -62,7 +60,9 @@ export const ItemsList = ({ className, items }: Props) => {
   return (
     <Table.Root className={clsx(className, s.tableRoot)}>
       <TableHeader item={itemTableName} setSortingStatus={setSortingStatus} />
-      <Table.Body>{sortedItems?.map(el => <ItemsRow item={el} key={el.id} />)}</Table.Body>
+      <Table.Body>
+        {sortedItems?.map(el => <ItemsRow item={el} key={`${el.email}-${el.id}`} />)}
+      </Table.Body>
     </Table.Root>
   )
 }

@@ -2,16 +2,11 @@ import { useState } from 'react'
 
 import SvgArrowUp from '@/assets/components/ArrowUp'
 import { Table } from '@/components/ui/table/table'
-import { SortType, SortingOptions } from '@/features/table/ui/itemsList/itemsList'
+import { SortingOptions, TableName } from '@/components/ui/table/tableHeader/tableHeaderName'
+import { SortType } from '@/features/table/ui/itemsList/itemsList'
 import clsx from 'clsx'
 
 import s from './tableHeader.module.scss'
-
-type TableName = {
-  flag?: boolean
-  key: SortingOptions
-  title: string
-}
 
 type Props = {
   item: TableName[]

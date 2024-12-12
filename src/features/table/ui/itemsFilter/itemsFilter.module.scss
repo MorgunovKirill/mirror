@@ -42,6 +42,14 @@
     color 0.3s ease;
 }
 
+.btn:disabled,
+.btn:disabled:hover,
+.btn:disabled:focus {
+  pointer-events: none;
+  opacity: 0.7;
+  background-color: var(--color-dark-300);
+}
+
 .searchBtn {
   background-color: var(--color-info-500);
 }
@@ -52,10 +60,10 @@
 }
 
 .resetBtn {
-  background-color: var(--color-dark-100);
+  background-color: var(--color-warning-300);
 }
 
 .resetBtn:hover,
 .resetBtn:focus {
-  background-color: var(--color-dark-300);
+  background-color: var(--color-warning-500);
 }
